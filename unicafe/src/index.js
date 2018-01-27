@@ -19,11 +19,15 @@ const Statistics = (props) => {
     return (
         <div>
         <h1>Statistiikka</h1>
-        <Statistic text={textHyva} palaute={hyva} />
-        <Statistic text={textNeutraali} palaute={neutraali} />
-        <Statistic text={textHuono} palaute={huono} />        
-        <Statistic text={textKeskiarvo} palaute={keskiarvo} />
-        <Statistic text={textPositiivisia} palaute={positiivisia} />
+        <table>
+            <tbody>
+            <Statistic text={textHyva} palaute={hyva} />
+            <Statistic text={textNeutraali} palaute={neutraali} />
+            <Statistic text={textHuono} palaute={huono} />        
+            <Statistic text={textKeskiarvo} palaute={keskiarvo} />
+            <Statistic text={textPositiivisia} palaute={positiivisia} />
+            </tbody>
+        </table>
         </div>
     )
 }
@@ -31,9 +35,9 @@ const Statistics = (props) => {
 const Statistic = (props) => {
     const {text, palaute} = props
     return (
-        <div>
-            <p>{text}: {palaute}</p>
-        </div>
+        <tr>
+            <td>{text}:</td><td>{palaute}</td>
+        </tr>
     )
 }
 

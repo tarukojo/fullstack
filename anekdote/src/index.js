@@ -9,7 +9,8 @@ class App extends React.Component {
       next: "Next anecdote",
       maxAmount: 6,
       vote: "Vote",
-      pisteet: [0, 0, 0, 0, 0, 0]
+      pisteet: [0, 0, 0, 0, 0, 0],
+      bestAIndex: -1
     }
   }
 
@@ -22,8 +23,11 @@ class App extends React.Component {
   vote = (index) => () => { 
     const kopio = [...this.state.pisteet]
     kopio[index] += 1  
+    const maxValue = Math.max(...kopio)
+    const selectedIndex = kopio.indexOf(maxValue)
     this.setState({
-         pisteet: kopio
+         pisteet: kopio,
+         bestAIndex: selectedIndex
     })
   }
 
@@ -34,10 +38,20 @@ class App extends React.Component {
         <Votes votes={this.state.pisteet[this.state.selected]} />
         <Button handleClick={this.changeAnecdote} text={this.state.next} />
         <Button handleClick={this.vote(this.state.selected)} text={this.state.vote} />
+        <MostVotes anecdote={this.props.anecdotes[this.state.bestAIndex]} />
       </div>
 
     )
   }
+}
+
+const MostVotes = (props) => {
+    return (
+        <div>
+            <p>Anecdote with most votes:</p>
+            <p>{props.anecdote}</p>
+        </div>
+    )
 }
 
 const Votes = (props) => {

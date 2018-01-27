@@ -7,7 +7,9 @@ class App extends React.Component {
     this.state = {
       selected: 0,
       next: "Next anecdote",
-      maxAmount: 6
+      maxAmount: 6,
+      vote: "Vote",
+      pisteet: [0, 0, 0, 0, 0, 0]
     }
   }
 
@@ -17,15 +19,33 @@ class App extends React.Component {
     })
   }
 
+  vote = (index) => () => { 
+    const kopio = [...this.state.pisteet]
+    kopio[index] += 1  
+    this.setState({
+         pisteet: kopio
+    })
+  }
+
   render() {
     return (
       <div>
         <p>{this.props.anecdotes[this.state.selected]}</p>
+        <Votes votes={this.state.pisteet[this.state.selected]} />
         <Button handleClick={this.changeAnecdote} text={this.state.next} />
+        <Button handleClick={this.vote(this.state.selected)} text={this.state.vote} />
       </div>
 
     )
   }
+}
+
+const Votes = (props) => {
+    return (
+        <div>
+            <p>Has {props.votes} votes</p>
+        </div>
+    )
 }
 
 const Button = ({ handleClick, text }) => (

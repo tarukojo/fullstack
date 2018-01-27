@@ -7,16 +7,25 @@ const Button = ({ handleClick, text }) => (
     </button>
   )
 
-const Statistiikka = (props) => {
+const Statistics = (props) => {
     const {hyva, neutraali, huono, keskiarvo, positiivisia, textHyva, textNeutraali, textHuono, textKeskiarvo, textPositiivisia} = props
     return (
         <div>
         <h1>Statistiikka</h1>
-        <p>{textHyva}: {hyva}</p>
-        <p>{textNeutraali}: {neutraali}</p>
-        <p>{textHuono}: {huono}</p>        
-        <p>{textKeskiarvo}: {keskiarvo}</p>
-        <p>{textPositiivisia}: {positiivisia} %</p>
+        <Statistic text={textHyva} palaute={hyva} />
+        <Statistic text={textNeutraali} palaute={neutraali} />
+        <Statistic text={textHuono} palaute={huono} />        
+        <Statistic text={textKeskiarvo} palaute={keskiarvo} />
+        <Statistic text={textPositiivisia} palaute={positiivisia} />
+        </div>
+    )
+}
+
+const Statistic = (props) => {
+    const {text, palaute} = props
+    return (
+        <div>
+            <p>{text}: {palaute}</p>
         </div>
     )
 }
@@ -75,7 +84,7 @@ class App extends React.Component {
         <Button handleClick={this.klikHyva} text={this.state.arvosanaHyva} />
         <Button handleClick={this.klikNeutraali} text={this.state.arvosanaNeutraali} />
         <Button handleClick={this.klikHuono} text={this.state.arvosanaHuono} />
-        <Statistiikka hyva={this.state.palauteHyva} neutraali={this.state.palauteNeutraali} huono={this.state.palauteHuono}
+        <Statistics hyva={this.state.palauteHyva} neutraali={this.state.palauteNeutraali} huono={this.state.palauteHuono}
             textHyva={this.state.arvosanaHyva} textNeutraali={this.state.arvosanaNeutraali} textHuono={this.state.arvosanaHuono} 
             textKeskiarvo={this.state.textKeskiarvo} keskiarvo={this.state.keskiarvo} 
             textPositiivisia={this.state.textPositiivisia} positiivisia={this.state.positiivisia} />

@@ -8,7 +8,14 @@ const Button = ({ handleClick, text }) => (
   )
 
 const Statistics = (props) => {
-    const {hyva, neutraali, huono, keskiarvo, positiivisia, textHyva, textNeutraali, textHuono, textKeskiarvo, textPositiivisia} = props
+    const {hyva, neutraali, huono, keskiarvo, positiivisia, textHyva, textNeutraali, textHuono, textKeskiarvo, textPositiivisia, kaikkiPalaute} = props
+    if (kaikkiPalaute === 0) {
+        return (
+            <div>
+                <p>ei yhtään palautetta annettu</p>
+            </div>
+        )
+    }
     return (
         <div>
         <h1>Statistiikka</h1>
@@ -87,7 +94,8 @@ class App extends React.Component {
         <Statistics hyva={this.state.palauteHyva} neutraali={this.state.palauteNeutraali} huono={this.state.palauteHuono}
             textHyva={this.state.arvosanaHyva} textNeutraali={this.state.arvosanaNeutraali} textHuono={this.state.arvosanaHuono} 
             textKeskiarvo={this.state.textKeskiarvo} keskiarvo={this.state.keskiarvo} 
-            textPositiivisia={this.state.textPositiivisia} positiivisia={this.state.positiivisia} />
+            textPositiivisia={this.state.textPositiivisia} positiivisia={this.state.positiivisia} 
+            kaikkiPalaute={this.state.kaikkiPalaute} />
       </div>
     )
   }

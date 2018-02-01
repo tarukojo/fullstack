@@ -1,12 +1,14 @@
 import React from 'react'
 import Otsikko from './Otsikko'
 import Sisalto from './Sisalto'
+import Yhteensa from './Yhteensa'
 
 const Kurssi = ({ kurssi }) => {
     return (
         <div>
             <Otsikko otsikko={kurssi.nimi} />
-            <Sisalto kurssi={kurssi} />
+            <Sisalto osat={kurssi.osat} />
+            <Yhteensa osat={kurssi.osat} />
         </div>
     )
 }

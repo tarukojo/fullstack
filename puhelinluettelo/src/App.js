@@ -1,24 +1,31 @@
-import React, { Component } from 'react'
+import React from 'react'
 import FilterInput from './components/FilterInput'
 import Numerot from './components/Numerot'
 import AddPerson from './components/AddPerson'
+import axios from 'axios'
 
 class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      persons: [
-        { name: 'Arto Hellas', phone: '040-123456' },
-        { name: 'Martti Tienari', phone: '040-123456' },
-        { name: 'Arto Järvinen', phone: '040-123456' },
-        { name: 'Lea Kutvonen', phone: '040-123456' }
-      ],
+      persons: [],
       newName: '',
       newPhone: '',
       filter: '',
       filteredPersons: []
     }
   }
+
+  componentWillMount() {
+    console.log('will mount')
+    axios
+      .get('http://localhost:3001/persons')
+      .then(response => {
+        console.log('promise fulfilled')
+        this.setState({ persons: response.data })
+      })
+  }
+
 
   handleFilter = (event) => {
     console.log(event.target.value)

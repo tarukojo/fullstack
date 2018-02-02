@@ -6,9 +6,12 @@ class App extends React.Component {
     super(props)
     this.state = {
       persons: [
-        { name: 'Arto Hellas' }
+        { name: 'Arto Hellas',
+          phone: '012345678'    
+        }
       ],
-      newName: ''
+      newName: '',
+      newPhone: ''
     }
   }
 
@@ -17,11 +20,17 @@ class App extends React.Component {
     this.setState({ newName: event.target.value })
   }
 
+  handlePhoneChange = (event) => {
+    console.log(event.target.value)
+    this.setState({ newPhone: event.target.value })
+  }
+
   addName = (event) => {
     event.preventDefault()
 
     const noteObject = {
-        name: this.state.newName
+        name: this.state.newName,
+        phone: this.state.newPhone
     }
     
     const isSaved = this.state.persons.filter(person => person.name === this.state.newName)
@@ -32,7 +41,8 @@ class App extends React.Component {
     
         this.setState({
             persons: persons,
-            newName: ''
+            newName: '',
+            newPhone: ''
         })   
     }
   }
@@ -46,6 +56,12 @@ class App extends React.Component {
             nimi: <input
             value={this.state.newName}
             onChange={this.handleNameChange} 
+            />
+          </div>
+          <div>
+            numero: <input 
+            value={this.state.newPhone}
+            onChange={this.handlePhoneChange}
             />
           </div>
           <div>

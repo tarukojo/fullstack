@@ -6,13 +6,26 @@ class App extends React.Component {
     super(props)
     this.state = {
       persons: [
-        { name: 'Arto Hellas',
-          phone: '012345678'    
-        }
+        { name: 'Arto Hellas', phone: '040-123456' },
+        { name: 'Martti Tienari', phone: '040-123456' },
+        { name: 'Arto Järvinen', phone: '040-123456' },
+        { name: 'Lea Kutvonen', phone: '040-123456' }
       ],
       newName: '',
-      newPhone: ''
+      newPhone: '',
+      filter: '',
+      filteredPersons: []
     }
+  }
+
+  handleFilter = (event) => {
+    console.log(event.target.value)
+    this.setState({ filter: event.target.value })
+
+    const newFiltered = this.state.persons.filter(person => person.name.toLowerCase().startsWith(this.state.filter.toLowerCase()))
+    
+    console.log(newFiltered)
+    this.setState({filteredPersons: newFiltered})
   }
 
   handleNameChange = (event) => {
@@ -51,6 +64,14 @@ class App extends React.Component {
     return (
       <div>
         <h2>Puhelinluettelo</h2>
+        <div>
+            rajaa näytettäviä: 
+            <form>
+                <input value={this.state.filter} onChange={this.handleFilter} />
+            </form>
+            <p/>
+        </div>
+        
         <form onSubmit={this.addName}>
           <div>
             nimi: <input
@@ -71,7 +92,8 @@ class App extends React.Component {
         <h2>Numerot</h2>
         <table>
             <tbody>
-                {this.state.persons.map(person => <Person key={person.name} person={person} />)}
+                {this.state.filter !== ''? this.state.filteredPersons.map(person => <Person key={person.name} person={person} />):
+                this.state.persons.map(person =>  <Person key={person.name} person={person} />) }
             </tbody>
         </table>
       </div>

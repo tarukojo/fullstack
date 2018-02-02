@@ -1,5 +1,7 @@
-import React from 'react'
-import Person from './components/Person'
+import React, { Component } from 'react'
+import FilterInput from './components/FilterInput'
+import Numerot from './components/Numerot'
+import AddPerson from './components/AddPerson'
 
 class App extends React.Component {
   constructor(props) {
@@ -64,38 +66,14 @@ class App extends React.Component {
     return (
       <div>
         <h2>Puhelinluettelo</h2>
-        <div>
-            rajaa näytettäviä: 
-            <form>
-                <input value={this.state.filter} onChange={this.handleFilter} />
-            </form>
-            <p/>
-        </div>
         
-        <form onSubmit={this.addName}>
-          <div>
-            nimi: <input
-            value={this.state.newName}
-            onChange={this.handleNameChange} 
-            />
-          </div>
-          <div>
-            numero: <input 
-            value={this.state.newPhone}
-            onChange={this.handlePhoneChange}
-            />
-          </div>
-          <div>
-            <button type="submit">lisää</button>
-          </div>
-        </form>
-        <h2>Numerot</h2>
-        <table>
-            <tbody>
-                {this.state.filter !== ''? this.state.filteredPersons.map(person => <Person key={person.name} person={person} />):
-                this.state.persons.map(person =>  <Person key={person.name} person={person} />) }
-            </tbody>
-        </table>
+        <FilterInput filter={this.state.filter} handleFilter={this.handleFilter} />
+        
+        <AddPerson newName={this.state.newName} handleNameChange={this.handleNameChange}
+            newPhone={this.state.newPhone} handlePhoneChange={this.handlePhoneChange}
+            addName={this.addName} />
+
+        <Numerot filter={this.state.filter} filteredPersons={this.state.filteredPersons} persons={this.state.persons} />
       </div>
     )
   }

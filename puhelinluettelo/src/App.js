@@ -19,16 +19,22 @@ class App extends React.Component {
 
   addName = (event) => {
     event.preventDefault()
+
     const noteObject = {
-      name: this.state.newName
+        name: this.state.newName
     }
-  
-    const persons = this.state.persons.concat(noteObject)
-  
-    this.setState({
-      persons: persons,
-      newName: ''
-    })
+    
+    const isSaved = this.state.persons.filter(person => person.name === this.state.newName)
+    if (isSaved.length !== 0) {
+        alert('Nimi on jo tallennettu luetteloon!')
+    } else {
+        const persons = this.state.persons.concat(noteObject)
+    
+        this.setState({
+            persons: persons,
+            newName: ''
+        })   
+    }
   }
 
   render() {

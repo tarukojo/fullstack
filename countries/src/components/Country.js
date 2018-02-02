@@ -1,6 +1,6 @@
 import React from 'react'
-
-const Country = ({amount, country}) => {
+ 
+const Country = ({amount, country, handleFilterByName}) => {
     if (amount === 1) {  
         return (
             <tr><td key={country.name}>
@@ -13,7 +13,7 @@ const Country = ({amount, country}) => {
     } 
     if (amount > 1) {
         return (
-            <tr><td key={country.name}>{country.name}</td></tr>
+            <tr><td key={country.name}><div onClick={() => handleFilterByName(country.name)}>{country.name}</div></td></tr>
         )
     }
 }

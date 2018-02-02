@@ -1,7 +1,7 @@
 import React from 'react'
 import Country from './Country'
 
-const CountryDetails = ({amount, countries}) => {
+const CountryDetails = ({amount, countries, handleFilterByName}) => {
     if (amount === 0 || amount > 10) { 
         return (
             <div>too many countries, specify another filter</div>
@@ -12,7 +12,9 @@ const CountryDetails = ({amount, countries}) => {
            <div>
                <table>
                    <tbody>
-                    {countries.map(country => <Country key={country.name} amount={amount} country={country}/>)}
+                    {countries.map(country => <Country key={country.name} amount={amount} 
+                                                    country={country} 
+                                                    handleFilterByName={handleFilterByName}/>)}
                     </tbody>
                 </table>
             </div>

@@ -43,6 +43,16 @@ class App extends React.Component {
         }
     }
 
+     handleFilterByName = (event) => {
+        console.log(event)
+        const newFiltered = this.state.countries.filter(country => country.name.toLowerCase().startsWith(event.toLowerCase()))
+        this.setState({ 
+            filterName: event,
+            filteredCountries: newFiltered,
+            amount: newFiltered.length
+        })
+    }  
+
     render() {
         return (
           <div>
@@ -51,7 +61,7 @@ class App extends React.Component {
                 Find countries: <input value={this.state.filterName} onChange={this.handleFilter} />
                 <p/>
             </div>
-                <CountryDetails amount={this.state.amount} countries={this.state.filteredCountries} />
+                <CountryDetails amount={this.state.amount} countries={this.state.filteredCountries} handleFilterByName={this.handleFilterByName} />
           </div>
         )
       }

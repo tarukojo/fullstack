@@ -65,7 +65,17 @@ class App extends React.Component {
             persons: persons,
             newName: '',
             newPhone: ''
-        })   
+        })  
+        
+        axios
+        .post('http://localhost:3001/persons', noteObject)
+        .then(response => {
+          this.setState({
+            notes: this.state.persons.concat(response.data),
+            newName: '',
+            newPhone: ''
+          })
+        })
     }
   }
 

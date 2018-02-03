@@ -69,6 +69,22 @@ class App extends React.Component {
     }
   }
 
+  deletePerson = (event) => { 
+    let personid = event
+    console.log(personid)
+    const deletedPerson = this.state.persons.find(n => n.id === personid)
+    personService
+    .deletePerson(personid)
+    .then(status => {
+      var array = this.state.persons.filter(function(item) {
+        return item.id !== deletedPerson.id
+      });
+      this.setState({
+        persons: array
+      })
+    })
+  }
+
   render() {
     return (
       <div>
@@ -80,7 +96,8 @@ class App extends React.Component {
             newPhone={this.state.newPhone} handlePhoneChange={this.handlePhoneChange}
             addName={this.addName} />
 
-        <Numerot filter={this.state.filter} filteredPersons={this.state.filteredPersons} persons={this.state.persons} />
+        <Numerot filter={this.state.filter} filteredPersons={this.state.filteredPersons} persons={this.state.persons} 
+          deletePerson={this.deletePerson} />
       </div>
     )
   }

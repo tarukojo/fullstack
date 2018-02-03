@@ -2,7 +2,7 @@ import React from 'react'
 import FilterInput from './components/FilterInput'
 import Numerot from './components/Numerot'
 import AddPerson from './components/AddPerson'
-import axios from 'axios'
+import personService from './services/persons'
 
 class App extends React.Component {
   constructor(props) {
@@ -18,14 +18,12 @@ class App extends React.Component {
 
   componentWillMount() {
     console.log('will mount')
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
-        console.log('promise fulfilled')
-        this.setState({ persons: response.data })
-      })
+    personService
+    .getAll()
+    .then(persons => {
+      this.setState({persons})
+    })
   }
-
 
   handleFilter = (event) => {
     console.log(event.target.value)
@@ -59,22 +57,14 @@ class App extends React.Component {
     if (isSaved.length !== 0) {
         alert('Nimi on jo tallennettu luetteloon!')
     } else {
-        const persons = this.state.persons.concat(noteObject)
-    
-        this.setState({
-            persons: persons,
-            newName: '',
-            newPhone: ''
-        })  
-        
-        axios
-        .post('http://localhost:3001/persons', noteObject)
-        .then(response => {
+        personService
+        .create(noteObject)
+        .then(newPerson => {
           this.setState({
-            notes: this.state.persons.concat(response.data),
+            persons: this.state.persons.concat(newPerson),
             newName: '',
-            newPhone: ''
-          })
+            newPhone: ''   
+          })        
         })
     }
   }

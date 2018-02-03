@@ -73,16 +73,18 @@ class App extends React.Component {
     let personid = event
     console.log(personid)
     const deletedPerson = this.state.persons.find(n => n.id === personid)
-    personService
-    .deletePerson(personid)
-    .then(status => {
-      var array = this.state.persons.filter(function(item) {
-        return item.id !== deletedPerson.id
-      });
-      this.setState({
-        persons: array
+    if (window.confirm("Haluatko varmasti poistaa nimen?")) {
+      personService
+      .deletePerson(personid)
+      .then(status => {
+        var array = this.state.persons.filter(function(item) {
+          return item.id !== deletedPerson.id
+        });
+        this.setState({
+          persons: array
+        })
       })
-    })
+    }
   }
 
   render() {

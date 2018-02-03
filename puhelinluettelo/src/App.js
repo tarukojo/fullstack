@@ -54,8 +54,20 @@ class App extends React.Component {
     }
     
     const isSaved = this.state.persons.filter(person => person.name === this.state.newName)
+    
     if (isSaved.length !== 0) {
         alert('Nimi on jo tallennettu luetteloon!')
+        if (window.confirm("Haluatko korvata numeron nimelle "+ noteObject.name)) {
+          const person = this.state.persons.find(p => p.name=== this.state.newName)
+          const changedObject = { ...person, phone: this.state.newPhone }
+          personService
+          .update(isSaved[0].id, changedObject)
+          .then(response => {
+            this.setState({
+              persons: this.state.persons.map(person => person.id !== isSaved[0].id ? person : changedObject)
+            })
+          })
+        }
     } else {
         personService
         .create(noteObject)

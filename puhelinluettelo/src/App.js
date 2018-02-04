@@ -75,6 +75,23 @@ class App extends React.Component {
               this.setState({message: null})
             }, 5000)
           })
+          .catch(error => {
+            if(window.confirm('Nimi on jo poistettu palvelimelta, haluatko lisätä sen takaisin?')) {
+              personService
+              .create(changedObject)
+              .then(newPerson => {
+                this.setState({
+                  persons: this.state.persons.map(person => person.id !== isSaved[0].id ? person : changedObject),
+                  newName: '',
+                  newPhone: '',
+                  message: 'Lisätty takaisin nimi ' + newPerson.name
+                })
+              })
+              .catch(error => {
+                window.alert('Jotain meni pieleen vieläkin!')
+              })
+            }           
+          })
         }
     } else {
         personService

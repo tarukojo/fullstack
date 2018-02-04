@@ -1,3 +1,3 @@
 #!/bin/sh
 npm run build
-xcopy build ..\..\puhelinapi\ /S /E
+xcopy build ..\..\puhelinapi\build /S /E

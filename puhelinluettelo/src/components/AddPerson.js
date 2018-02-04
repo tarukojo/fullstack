@@ -3,6 +3,7 @@ import React from 'react'
 const AddPerson = ({newName, handleNameChange, newPhone, handlePhoneChange, addName}) => {
     return (
         <div>
+            <h2>Lisää uusi / Muuta olemassa olevan numeroa</h2>
             <form onSubmit={addName}>
             <div>
             nimi: <input

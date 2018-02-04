@@ -3,6 +3,7 @@ import FilterInput from './components/FilterInput'
 import Numerot from './components/Numerot'
 import AddPerson from './components/AddPerson'
 import personService from './services/persons'
+import Notification from './components/Notification'
 
 class App extends React.Component {
   constructor(props) {
@@ -12,7 +13,8 @@ class App extends React.Component {
       newName: '',
       newPhone: '',
       filter: '',
-      filteredPersons: []
+      filteredPersons: [],
+      message: null
     }
   }
 
@@ -64,8 +66,14 @@ class App extends React.Component {
           .update(isSaved[0].id, changedObject)
           .then(response => {
             this.setState({
-              persons: this.state.persons.map(person => person.id !== isSaved[0].id ? person : changedObject)
+              persons: this.state.persons.map(person => person.id !== isSaved[0].id ? person : changedObject),
+              message: 'Numero korvattu nimelle '+ this.state.newName,
+              newName: '',
+              newPhone: ''
             })
+            setTimeout(() => {
+              this.setState({message: null})
+            }, 5000)
           })
         }
     } else {
@@ -75,8 +83,12 @@ class App extends React.Component {
           this.setState({
             persons: this.state.persons.concat(newPerson),
             newName: '',
-            newPhone: ''   
+            newPhone: '',
+            message: 'Lisätty uusi nimi ' + newPerson.name   
           })        
+          setTimeout(() => {
+            this.setState({message: null})
+          }, 5000)
         })
     }
   }
@@ -85,7 +97,7 @@ class App extends React.Component {
     let personid = event
     console.log(personid)
     const deletedPerson = this.state.persons.find(n => n.id === personid)
-    if (window.confirm("Haluatko varmasti poistaa nimen?")) {
+    if (window.confirm("Haluatko varmasti poistaa nimen " + deletedPerson.name +"?")) {
       personService
       .deletePerson(personid)
       .then(status => {
@@ -93,8 +105,12 @@ class App extends React.Component {
           return item.id !== deletedPerson.id
         });
         this.setState({
-          persons: array
+          persons: array,
+          message: 'Poistettu ' + deletedPerson.name + ' ' + deletedPerson.phone
         })
+        setTimeout(() => {
+          this.setState({message: null})
+        }, 5000)
       })
     }
   }
@@ -103,7 +119,8 @@ class App extends React.Component {
     return (
       <div>
         <h2>Puhelinluettelo</h2>
-        
+        <Notification message={this.state.message}/>
+
         <FilterInput filter={this.state.filter} handleFilter={this.handleFilter} />
         
         <AddPerson newName={this.state.newName} handleNameChange={this.handleNameChange}
